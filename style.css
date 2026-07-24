@@ -1,0 +1,48 @@
+
+        /* .stApp{
+        background-color: #ba8d3a;
+        } */
+        .st-key-form{
+            background-color:white;
+            border-radius:20px;
+            margin-left:3.5cm;
+            margin-top:1cm;
+        }
+        .st-key-form1{
+            background-color:white;
+            border-radius:20px;
+            margin-left:3.5cm;
+            margin-top:2px;
+        }
+        .st-key-Login p{
+            font-size:16px;
+            font-weight:bold;
+        }
+        .st-key-content h1{
+        color: black;
+        text-align: center;
+        }
+        .st-key-loginusername p{
+        font-size:18px;
+        font-weight:8px;
+        }
+        .st-key-password p{
+        font-size:18px;
+        font-weight:10px;
+        }
+        .st-key-confirmpassword p{
+        font-size:18px;
+        font-weight:10px;
+        }
+        .st-key-regpassword p{
+        font-size:18px;
+        font-weight:10px;
+        }
+        .st-key-regusername p{
+        font-size:18px;
+        font-weight:8px;
+        }
+        .st-key-sidebar p{
+            font-size: 15px;
+            font-weight:bold;
+        }

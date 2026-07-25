@@ -37,6 +37,8 @@ def login():
                            select * from users where username=%s
                            ''')
             values=(username,)
+            conn.ping(reconnect=True, attempts=3, delay=2)
+
             cursor.execute(query,values)
             
             user=cursor.fetchone()

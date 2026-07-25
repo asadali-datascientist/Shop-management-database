@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from db import conn, cursor
+from datetime import date
 
 def sell():
 
@@ -52,6 +53,8 @@ def sell():
             min_value=1,
             step=1
         )
+        sale_date=st.date_input("Enter Sale Date",min_value=date(1970,1,1),
+                                max_value=date.today())
 
         if st.button("Sell Product", type="primary"):
 
@@ -94,9 +97,10 @@ def sell():
                         quantity,
                         customer_name,
                         total_amount,
+                        sale_date,
                         user_id
                     )
-                    VALUES(%s,%s,%s,%s,%s,%s,%s)
+                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
                     """, (
                         product_id,
                         product_name,
@@ -104,6 +108,7 @@ def sell():
                         quantity,
                         customer_name,
                         total_amount,
+                        sale_date,
                         st.session_state.user_id
                     ))
 
@@ -136,12 +141,12 @@ def sell():
 
         cursor.execute("""
         SELECT
-            id,
             product_name,
             price,
             quantity,
             customer_name,
-            total_amount
+            total_amount,
+            sale_date
         FROM sell_items
         WHERE user_id=%s
         ORDER BY id DESC
@@ -154,12 +159,12 @@ def sell():
             df = pd.DataFrame(
                 data,
                 columns=[
-                    "Sale ID",
                     "Product",
                     "Price",
                     "Quantity",
                     "Customer",
-                    "Total Amount"
+                    "Total Amount",
+                    "Sale Date"
                 ]
             )
 

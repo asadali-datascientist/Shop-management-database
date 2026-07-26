@@ -55,13 +55,14 @@ def product():
                 
                 conn.commit()
                 st.success(" ✅ Product added successfully")
-                st.session_state.serial_number = ""
-                st.session_state.product_name = ""
-                st.session_state.category = ""
-                st.session_state.purchase_price = 0
-                st.session_state.sell_price = 0
-                st.session_state.quantity = 0
-                st.session_state.product_date = date.today()
+                st.session_state.pop("serial_number", None)
+                st.session_state.pop("product_name", None)
+                st.session_state.pop("category", None)
+                st.session_state.pop("purchase_price", None)
+                st.session_state.pop("sell_price", None)
+                st.session_state.pop("quantity", None)
+                st.session_state.pop("product_date", None)
+
                 st.rerun()
                 
     elif menu=="Delete Product":
@@ -78,7 +79,7 @@ def product():
                                ''',(id,st.session_state.user_id,))
                 if cursor.rowcount > 0:
                     st.success("✅ Product deleted successfully.")
-                    st.session_state.delete_serial = 0
+                    st.session_state.pop("delete_serial", None)
                     st.rerun()
                 else:
                         st.warning("⚠️ Product ID not found.")
@@ -121,7 +122,7 @@ def product():
         quantity=st.number_input("Enter Total Quantity",placeholder="Quantity",
                                  key="update_quantity",step=1)
         product_date=st.date_input("Enter Date",min_value=date(1970,1,1),
-                                   kry="update_date",max_value=date.today())
+                                   key="update_date",max_value=date.today())
         if st.button("Update",type='primary'):
             if name.strip()=="" and serial_number.strip()=="" and category.strip()=="" and purchase_price<=0 and sell_price<=0:
                         st.error("Product id missing!")
@@ -136,14 +137,13 @@ def product():
                                     sell_price,quantity,
                                     product_date,serial_number,st.session_state.user_id,))
                 conn.commit()
-                st.success("✅Successfully Updated.")
-                st.session_state.update_serial = ""
-                st.session_state.product_name = ""
-                st.session_state.update_category = ""
-                st.session_state.update_purchase = 0
-                st.session_state.update_sell = 0
-                st.session_state.update_quantity = 0
-                st.session_state.update_date = date.today()
+                st.session_state.pop("update_serial", None)
+                st.session_state.pop("product_name", None)
+                st.session_state.pop("update_category", None)
+                st.session_state.pop("update_purchase", None)
+                st.session_state.pop("update_sell", None)
+                st.session_state.pop("update_quantity", None)
+                st.session_state.pop("update_date", None)
 
                 st.rerun()
     

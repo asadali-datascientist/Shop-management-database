@@ -39,14 +39,15 @@ def employee():
                                     st.session_state.user_id,))
                 conn.commit()
                 st.success("✅ Employee added successfully")
-                st.session_state.serial_number= ""
-                st.session_state.name= ""
-                st.session_state.phone=""
-                st.session_state.salary=""
-                st.session_state.address=""
-                st.session_state.join_date=""
+                st.session_state.pop("serial_number", None)
+                st.session_state.pop("name", None)
+                st.session_state.pop("phone", None)
+                st.session_state.pop("salary", None)
+                st.session_state.pop("address", None)
+                st.session_state.pop("join_date", None)
+
                 st.rerun()
-                
+                                
     elif menu=='View Employee':
         st.subheader("👁️ View Employes")
         cursor.execute('''
@@ -64,7 +65,7 @@ def employee():
         if st.button("Delete Employee",type='primary'):
             if id<=0:
                 st.error("Please fill required field!")
-                st.session_state.id=0
+                st.session_state.pop("id", None)
                 st.rerun()
             else:
                 cursor.execute('''
@@ -90,7 +91,7 @@ def employee():
                                         min_value=date(1970,1,1),max_value=date.today()
                                         ,key="update_date")
         if st.button("Update Employee",type='primary'):
-            if name.strip()=="" and serial_number.strip()=="" and phone.strip()=="" and address.strip()=="" and salary<=0:
+            if name.strip()=="" or serial_number.strip()=="" or phone.strip()=="" or address.strip()=="" or salary<=0:
                             st.error("Please fill the required fields!")
             else:
                 cursor.execute('''
@@ -100,11 +101,11 @@ def employee():
                                where emp_serial_number=%s and user_id=%s
                                ''',(name,phone,salary,address,join_date,serial_number,st.session_state.user_id,))
                 conn.commit()
-                st.success("✅Successfully Updated")
-                st.session_state.update_serial= ""
-                st.session_state.update_name= ""
-                st.session_state.update_phone=""
-                st.session_state.update_salary=0
-                st.session_state.update_address=""
-                st.session_state.update_date=date.today()
+                st.session_state.pop("update_serial", None)
+                st.session_state.pop("update_name", None)
+                st.session_state.pop("update_phone", None)
+                st.session_state.pop("update_salary", None)
+                st.session_state.pop("update_address", None)
+                st.session_state.pop("update_date", None)
+
                 st.rerun()

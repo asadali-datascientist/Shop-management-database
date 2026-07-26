@@ -130,9 +130,6 @@ def sell():
                     conn.commit()
 
                     st.success("✅ Product sold successfully.")
-                    st.session_state.customer_name=""
-                    st.session_state.quantity=0
-                    st.session_state.sell_date=date.today()
                     
 
     # ===========================

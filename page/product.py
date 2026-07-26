@@ -17,7 +17,7 @@ def product():
     st.divider()
     if menu=='Add Product':
         st.subheader("➕Add Product")
-        serial_number=st.text_input("Enter  product Serial Number",
+        serial_number=st.number_input("Enter  product Serial Number",step=1,min_value=0,
                                     placeholder='Serial Number',key="serial_number")
         name=st.text_input("Enter product name",placeholder="Name",key='product_name')
         category=st.text_input("Category",placeholder='Category',key="category")
@@ -97,7 +97,7 @@ def product():
         
     elif menu=='Update Product':
         st.subheader("🔃Update Product")
-        serial_number=st.text_input("Enter Product Serail  Number",
+        serial_number=st.number_input("Enter Product Serail  Number",step=1
                                       placeholder="Serial Number",
                                       key="update_serial")
         name=st.text_input("Enter product name",placeholder="Name",

@@ -45,16 +45,16 @@ def sell():
 
         customer_name = st.text_input(
             "Customer Name",
-            placeholder="Customer Name"
+            placeholder="Customer Name",key="customer_name"
         )
 
         quantity = st.number_input(
             "Quantity",
             min_value=1,
-            step=1
+            step=1,key="quantity"
         )
         sale_date=st.date_input("Enter Sale Date",min_value=date(1970,1,1),
-                                max_value=date.today())
+                                max_value=date.today(),key="sale_date")
 
         if st.button("Sell Product", type="primary"):
 
@@ -130,6 +130,10 @@ def sell():
                     conn.commit()
 
                     st.success("✅ Product sold successfully.")
+                    st.session_state.customer_name=""
+                    st.session_state.quantity=0
+                    st.session_state.sell_date=date.today()
+                    
 
     # ===========================
     # VIEW SALES

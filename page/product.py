@@ -18,14 +18,17 @@ def product():
     if menu=='Add Product':
         st.subheader("➕Add Product")
         serial_number=st.text_input("Enter  product Serial Number",
-                                    placeholder='Serial Number')
+                                    placeholder='Serial Number',key="serial_number")
         name=st.text_input("Enter product name",placeholder="Name",key='product_name')
-        category=st.text_input("Category",placeholder='Category')
+        category=st.text_input("Category",placeholder='Category',key="category")
         purchase_price=st.number_input("Enter Purchase  Price",
-                                       placeholder='Price',step=1)
-        sell_price=st.number_input('Enter Selling Price',placeholder='Price',step=1)
-        quantity=st.number_input("Enter Total Quantity",placeholder="Quantity",step=1)
-        product_date=st.date_input("Enter Date",min_value=date(1970,1,1),max_value=date.today())
+                                       placeholder='Price',step=1,key="purchase_price")
+        sell_price=st.number_input('Enter Selling Price',placeholder='Price',step=1,
+                                   key="sell_price")
+        quantity=st.number_input("Enter Total Quantity",placeholder="Quantity",
+                                 key="quantity",step=1)
+        product_date=st.date_input("Enter Date",min_value=date(1970,1,1),
+                                   key="product_date",max_value=date.today())
         if st.button("Add Product",type='primary'):
             if name.strip()=="" and quantity<=0 and category.strip()=="" and purchase_price<=0 and sell_price<=0:
                 st.error("Please fill required fields!")
@@ -52,11 +55,20 @@ def product():
                 
                 conn.commit()
                 st.success(" ✅ Product added successfully")
+                st.session_state.serial_number = ""
+                st.session_state.product_name = ""
+                st.session_state.category = ""
+                st.session_state.purchase_price = 0
+                st.session_state.sell_price = 0
+                st.session_state.quantity = 0
+                st.session_state.product_date = date.today()
+                st.rerun()
                 
     elif menu=="Delete Product":
         st.subheader("❎Delete Product")
         id=st.number_input("Enter product serial Number",
-                           placeholder='Serial Number',step=1)
+                           placeholder='Serial Number',
+                           key='delete_serial',step=1)
         if st.button("Delete",type='primary'):
             if id<=0:
                 st.error("Please fill required field")
@@ -66,8 +78,11 @@ def product():
                                ''',(id,st.session_state.user_id,))
                 if cursor.rowcount > 0:
                     st.success("✅ Product deleted successfully.")
+                    st.session_state.delete_serial = 0
+                    st.rerun()
                 else:
                         st.warning("⚠️ Product ID not found.")
+                        
     elif menu=="View Product":
         st.subheader("👁️View Product")
         cursor.execute('''
@@ -93,14 +108,20 @@ def product():
     elif menu=='Update Product':
         st.subheader("🔃Update Product")
         serial_number=st.text_input("Enter Product Serail  Number",
-                                      placeholder="Serial Number")
-        name=st.text_input("Enter product name",placeholder="Name",key='product_name')
-        category=st.text_input("Category",placeholder='Category')
+                                      placeholder="Serial Number",
+                                      key="update_serial")
+        name=st.text_input("Enter product name",placeholder="Name",
+                           key='product_name')
+        category=st.text_input("Category",placeholder='Category',
+                               key="update_category")
         purchase_price=st.number_input("Enter Purchase  Price",
-                                               placeholder='Price',step=1)
-        sell_price=st.number_input('Enter Selling Price',placeholder='Price',step=1)
-        quantity=st.number_input("Enter Total Quantity",placeholder="Quantity",step=1)
-        product_date=st.date_input("Enter Date",min_value=date(1970,1,1),max_value=date.today())
+                                        key="update_purchase",placeholder='Price',step=1)
+        sell_price=st.number_input('Enter Selling Price',placeholder='Price',
+                                   key="update_sell",step=1)
+        quantity=st.number_input("Enter Total Quantity",placeholder="Quantity",
+                                 key="update_quantity",step=1)
+        product_date=st.date_input("Enter Date",min_value=date(1970,1,1),
+                                   kry="update_date",max_value=date.today())
         if st.button("Update",type='primary'):
             if name.strip()=="" and serial_number.strip()=="" and category.strip()=="" and purchase_price<=0 and sell_price<=0:
                         st.error("Product id missing!")
@@ -116,5 +137,14 @@ def product():
                                     product_date,serial_number,st.session_state.user_id,))
                 conn.commit()
                 st.success("✅Successfully Updated.")
+                st.session_state.update_serial = ""
+                st.session_state.product_name = ""
+                st.session_state.update_category = ""
+                st.session_state.update_purchase = 0
+                st.session_state.update_sell = 0
+                st.session_state.update_quantity = 0
+                st.session_state.update_date = date.today()
+
+                st.rerun()
     
             

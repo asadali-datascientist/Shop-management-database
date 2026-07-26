@@ -97,7 +97,7 @@ def product():
         
     elif menu=='Update Product':
         st.subheader("🔃Update Product")
-        serial_number=st.number_input("Enter Product Serail  Number",step=1
+        serial_number=st.number_input("Enter Product Serail  Number",step=1,
                                       placeholder="Serial Number",
                                       key="update_serial")
         name=st.text_input("Enter product name",placeholder="Name",

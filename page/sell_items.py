@@ -172,7 +172,7 @@ def sell():
 
             st.dataframe(
                 df,
-                use_container_width="stretch",
+                width="stretch",
                 hide_index=True
             )
 

@@ -130,6 +130,7 @@ def sell():
                     conn.commit()
 
                     st.success("✅ Product sold successfully.")
+                    st.stop()
                     
 
     # ===========================
@@ -171,7 +172,7 @@ def sell():
 
             st.dataframe(
                 df,
-                use_container_width=True,
+                use_container_width="stretch",
                 hide_index=True
             )
 

@@ -39,14 +39,6 @@ def employee():
                                     st.session_state.user_id,))
                 conn.commit()
                 st.success("✅ Employee added successfully")
-                st.session_state.pop("serial_number", None)
-                st.session_state.pop("name", None)
-                st.session_state.pop("phone", None)
-                st.session_state.pop("salary", None)
-                st.session_state.pop("address", None)
-                st.session_state.pop("join_date", None)
-
-                st.rerun()
                                 
     elif menu=='View Employee':
         st.subheader("👁️ View Employes")
@@ -65,8 +57,6 @@ def employee():
         if st.button("Delete Employee",type='primary'):
             if id<=0:
                 st.error("Please fill required field!")
-                st.session_state.pop("id", None)
-                st.rerun()
             else:
                 cursor.execute('''
                                        delete from employee
@@ -102,10 +92,3 @@ def employee():
                                ''',(name,phone,salary,address,join_date,serial_number,st.session_state.user_id,))
                 conn.commit()
                 st.session_state.pop("update_serial", None)
-                st.session_state.pop("update_name", None)
-                st.session_state.pop("update_phone", None)
-                st.session_state.pop("update_salary", None)
-                st.session_state.pop("update_address", None)
-                st.session_state.pop("update_date", None)
-
-                st.rerun()

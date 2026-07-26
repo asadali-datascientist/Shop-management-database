@@ -55,15 +55,6 @@ def product():
                 
                 conn.commit()
                 st.success(" ✅ Product added successfully")
-                st.session_state.pop("serial_number", None)
-                st.session_state.pop("product_name", None)
-                st.session_state.pop("category", None)
-                st.session_state.pop("purchase_price", None)
-                st.session_state.pop("sell_price", None)
-                st.session_state.pop("quantity", None)
-                st.session_state.pop("product_date", None)
-
-                st.rerun()
                 
     elif menu=="Delete Product":
         st.subheader("❎Delete Product")
@@ -79,8 +70,6 @@ def product():
                                ''',(id,st.session_state.user_id,))
                 if cursor.rowcount > 0:
                     st.success("✅ Product deleted successfully.")
-                    st.session_state.pop("delete_serial", None)
-                    st.rerun()
                 else:
                         st.warning("⚠️ Product ID not found.")
                         
@@ -137,14 +126,4 @@ def product():
                                     sell_price,quantity,
                                     product_date,serial_number,st.session_state.user_id,))
                 conn.commit()
-                st.session_state.pop("update_serial", None)
-                st.session_state.pop("product_name", None)
-                st.session_state.pop("update_category", None)
-                st.session_state.pop("update_purchase", None)
-                st.session_state.pop("update_sell", None)
-                st.session_state.pop("update_quantity", None)
-                st.session_state.pop("update_date", None)
-
-                st.rerun()
-    
             

@@ -8,7 +8,6 @@ conn = mysql.connector.connect(
     password=st.secrets["DB_PASSWORD"],
     database=st.secrets["DB_NAME"],
     autocommit=True,
-    connection_timeout=30
 )
 conn.ping(reconnect=True, attempts=3, delay=2)
 cursor=conn.cursor()

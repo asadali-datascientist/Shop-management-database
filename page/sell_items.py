@@ -128,10 +128,9 @@ def sell():
                     ))
 
                     conn.commit()
-
                     st.success("✅ Product sold successfully.")
-                    st.stop()
                     
+                                    
 
     # ===========================
     # VIEW SALES
@@ -178,3 +177,6 @@ def sell():
 
         else:
             st.info("No sales available.")
+            
+        cursor.close()
+        conn.close()

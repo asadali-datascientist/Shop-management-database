@@ -32,23 +32,17 @@ def dashboard():
 
     c1,c2,c3=st.columns(3)
     with c1:
-        st.metric(
-                label="Total Employee",
-                value=total_employee,
-                label_visibility="collapsed")
+        st.subheader("👨‍💼 Total Employee")
+        st.metric("", total_employee)
     with c2:
-        st.metric(
-                    label="Total Salary",
-                    value=f"Rs. {total_employee_salary:,.2f}",
-                    label_visibility="collapsed")
+        st.subheader("💵 Total Employee Salary")
+        st.metric("",f" Rs {total_employee_salary:,.2f}")
     with c3:
         st.subheader("Total Categories")
         st.metric("🛒",total_category)
         
-    c4,=st.columns(1)
+    c4,c5,c6=st.columns(3)
     with c4:
-        st.metric(
-                label="Total Sales",
-                value=f"Rs. {total_sales:,.2f}",
-                label_visibility="collapsed")   
+        st.subheader("💰 Total Sales")
+        st.metric("",f"Rs. {total_sales:,.2f}")    
     st.divider()

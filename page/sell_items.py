@@ -177,6 +177,3 @@ def sell():
 
         else:
             st.info("No sales available.")
-            
-        cursor.close()
-        conn.close()

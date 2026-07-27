@@ -57,79 +57,81 @@ def sell():
                                 max_value=date.today(),key="sale_date")
 
         if st.button("Sell Product", type="primary"):
-
-            if customer_name.strip() == "":
-                st.error("Please enter customer name.")
-
-            else:
-
-                cursor.execute("""
-                SELECT available_stock
-                FROM stock
-                WHERE product_id=%s
-                AND user_id=%s
-                """, (
-                    product_id,
-                    st.session_state.user_id
-                ))
-
-                stock = cursor.fetchone()
-
-                if stock is None:
-
-                    st.error("Stock not found.")
-
-                elif quantity > stock[0]:
-
-                    st.error("Not enough stock available.")
+            try:
+                if customer_name.strip() == "":
+                    st.error("Please enter customer name.")
 
                 else:
 
-                    total_amount = price * quantity
-
-                    # Save sale
                     cursor.execute("""
-                    INSERT INTO sell_items
-                    (
-                        product_id,
-                        product_name,
-                        price,
-                        quantity,
-                        customer_name,
-                        total_amount,
-                        sale_date,
-                        user_id
-                    )
-                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
-                    """, (
-                        product_id,
-                        product_name,
-                        price,
-                        quantity,
-                        customer_name,
-                        total_amount,
-                        sale_date,
-                        st.session_state.user_id
-                    ))
+                        SELECT available_stock
+                        FROM stock
+                        WHERE product_id=%s
+                        AND user_id=%s
+                        """, (
+                            product_id,
+                            st.session_state.user_id
+                        ))
 
-                    # Update stock
-                    cursor.execute("""
-                    UPDATE stock
-                    SET
-                        sold_stock = sold_stock + %s,
-                        available_stock = available_stock - %s
-                    WHERE product_id=%s
-                    AND user_id=%s
-                    """, (
-                        quantity,
-                        quantity,
-                        product_id,
-                        st.session_state.user_id
-                    ))
+                    stock = cursor.fetchone()
 
-                    conn.commit()
-                    st.success("✅ Product sold successfully.")
+                    if stock is None:
+
+                            st.error("Stock not found.")
+
+                    elif quantity > stock[0]:
+
+                            st.error("Not enough stock available.")
+
+                    else:
+
+                            total_amount = price * quantity
+
+                            # Save sale
+                            cursor.execute("""
+                            INSERT INTO sell_items
+                            (
+                                product_id,
+                                product_name,
+                                price,
+                                quantity,
+                                customer_name,
+                                total_amount,
+                                sale_date,
+                                user_id
+                            )
+                            VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+                            """, (
+                                product_id,
+                                product_name,
+                                price,
+                                quantity,
+                                customer_name,
+                                total_amount,
+                                sale_date,
+                                st.session_state.user_id
+                            ))
+
+                            # Update stock
+                            cursor.execute("""
+                            UPDATE stock
+                            SET
+                                sold_stock = sold_stock + %s,
+                                available_stock = available_stock - %s
+                            WHERE product_id=%s
+                            AND user_id=%s
+                            """, (
+                                quantity,
+                                quantity,
+                                product_id,
+                                st.session_state.user_id
+                            ))
+
+                            conn.commit()
+                            st.success("✅ Product sold successfully.")
                     
+            except Exception as e:
+                st.exception(e)       
                                     
 
     # ===========================
